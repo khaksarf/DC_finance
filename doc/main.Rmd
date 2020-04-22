@@ -1,0 +1,16 @@
+---  
+title: Quantitative Analyst with R
+output: html_notebook
+# output: 
+#   pdf_document:
+#     toc: yes 
+---
+
+```{r child = 'course_01.Rmd'}
+```
+```{r child = 'course_02.Rmd'}
+```
+
+<!-- rmd <- list.files(pattern = '*.Rmd', recursive = T) -->
+<!-- chunks <- paste0("```{r child = '", rmd, "'}\n```\n") -->
+<!-- cat(chunks, sep = '\n') -->

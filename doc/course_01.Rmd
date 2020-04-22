@@ -1,0 +1,179 @@
+---
+title: "Introduction to R in Finance"
+output: html_notebook
+---
+# 1. Introduction to R in Finance
+## Lesson 1-The Basics
+Data type or class: `class(variable)`
+
+## Lesson 2-Vector
+- It is possible to create a vector of similar data type by `c()`  
+- Naming the vector `names(variable) <- name_vector`
+
+### Coerce
+In a vector of  different data type, vector’s data type is coerced to higher ranking type: data type order:
+logical < integer < numeric < character
+
+### Vector manipulation
+- R does Recycling behind the scene to do the operation between scalar and vector
+- multiplying a vector of length 3 by a vector of length 2. R reuses the 1st value of the vector of length 2, but notice the warning!
+- Select a subset of a vector either by name or index within `[]`
+
+### Matrix
+- The default fill-in option is `bycol = TRUE`.
+- It can only store one type of data.
+- `cbind()` concatenates matrices column-wise while `rbind()` concatenates them row-wise.
+- `cor()` is a correlation function it can get two vectors or a matrix (it reports the correlations of each two columns.
+- Matrix subsetting: `matrix[row, column]`
+
+## Lesson 3-Data frame
+`data.frame()` is similar to matrix but you can store different data type in each column (attribute)    
+`colnames(data_frame) <- namesVector` changes the names of __columns__ of the data frame
+`rownames(data_frame) <- namesVector` changes the names of __rows__ of the data frame  
+- `head()` - Returns the first few rows of a data frame. By default, 6. To change this, use `head(cash, n = ___)`  
+- `tail()` - Returns the last few rows of a data frame. By default, 6. To change this, use `tail(cash, n = ___)`  
+- `str()` - Check the __structure__ of an object. This fantastic function will show you the data type of the object you pass in (here, data.frame), and will list each column variable along with its data type.  
+
+### Data frame manipulation
+data frame slicing is similar to matricies. use `[]` to slice data frame.  
+
+* To keep the data frame structure use add `drop = FALSE` to the slicing
+* to slice entire column use `df$column_name`.
+
+    + remember R simplifed the result to vector
+* select by column name or numbers: `df[2:4, c('name1', 'name2')]`
+* To delete a column(s), assign `NULL`: `df[namesVector] <- NULL`
+
+`subset()` is used to complex slicing: `subset(data, rules)`
+
+* DO NOT put column names in quoted!
+* To add new column or modify the data of a column use `$` 
+
+### present value
+present value is the current money of the expected value in the following years: $$pv = cash\times(1+\frac{intrest}{100})^{-year}$$
+
+## Lesson 4-Factor
+`factor()` are stored as integer but it is showd by charachter
+
+* It's good group variables. In an unordered factor, levels are based on Alphabetical  order
+* `levels()` shows the unique levels of a factor variable and is used to rename the levels to the variable
+* `summary()` reports a frequency table of a factor variable
+* default settings of `plot()` for the factor variable is _barchart_
+* `cut()` helps to bucket a numeric vector. It requires the data and a vector of breaks.
+    * R treats left side of each buckets exclusive while the right one as inclusive.
+    * It goupes the data into $n-1$ group, $n$ is the size of breaks.  
+    * The `cut()` lower bound and upper bound of data as first and last value in the breaks vector.
+        * To consider $\infty$ use `Inf` for each bound.
+        
+```
+cut(x = data, breaks = c())
+```
+
+### ordinal factors
+1. When creating a factor, specify `ordered = TRUE` and add unique levels in order from __least__ to greatest:
+```{r}
+credit_rating <- c("AAA", "AA", "A", "BBB", "AA", "BBB", "A")
+
+credit_factor_ordered <- factor(credit_rating, ordered = TRUE, 
+                                levels = c("AAA", "AA", "A", "BBB"))
+```  
+
+2. For an existing unordered factor, use the `ordered()` function:
+```{r}
+ordered(credit_factor_ordered, levels = c("AAA", "AA", "A", "BBB"))
+```
+
+#### Drop/subseting 
+To remove a level from a factor use `-` and `drop = TRUE` within `[]`:
+```{r}
+drop_level = credit_factor_ordered[-which(credit_factor_ordered == 'AA'), drop = TRUE]
+```
+
+*  R's default behavior when creating data frames is to convert __all__ _characters_ into factors. to turn this behavior off use `stringsAsFactors = FALSE` in the `data.frame()` 
+
+## Lesson 5-List
+`list()` holds different type of data together
+
+### nameed lists
+In the `list()` use `name = value` or if the list is existed use `names(list) <- namesVector` to assign names vector
+ 
+### Accessing elements
+* `[]` alwayes returns another list
+* `[[]]` returns the data inside the corresponding index
+* for named list `$` operator is the same as `[[]]`. It returns the inner data.
+
+### adding to a list
+1. adding an element is similar to adding a column to the data frame using `$`
+2. use `c()` to add mltiple elements to the list at once `my_list <- c(my_list, name1 = ele1, name2 = ele2, nameN = eleN)`
+
+### Removing from list
+It is similar to data frame. Select the desired elements and the assign `NULL` to them
+
+### Split 
+`split(data, grouping)` breaks a data frame of different groups into a list of the individual one.  
+`unsplit(data, grouping)` does the revere.
+
+### Split-Apply-Combine
+Use `split()` to divid the data frame then manipulate the data and after that reassemble them into a single data frame.
+
+### Attributes
+Attributes are a bit of extra metadata about your data structure. `attributes()` shows __all__ attributes of an object. Some common attributes are: column names and row names, dimensions, and class  
+To access a specific attribute, use `attr(data ,  which = 'specific_attributes')`
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
