@@ -20,7 +20,8 @@ ipak <- function(pkg){
 package_list = c(
                  'rgdax', 'bittrex', # exchange API
                  'ggplot2', 'future', 'openxlsx', 'progress',
-                 'lubridate' 
+                 'lubridate',
+                 'rmarkdown'
                  ) 
 # print(ipak(package_list))
 if (all(ipak(package_list))){
