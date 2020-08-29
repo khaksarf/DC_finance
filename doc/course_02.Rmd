@@ -4,8 +4,24 @@ output: html_notebook
 ---
 # 2. Intermediate R for Finance
 ## Lesson 1-Dates
+* `Sys.Date()` and `Sys.time()` provide `Date` and `POXIStc` data type.
+* Internally, dates are stored as the number of days since January 1, 1970, and datetimes are stored as the number of seconds since then! To get days use `as.numeric`
+* `%Y` 4-digit year (1982)
+* `%y` 2-digit year (82)
+* `%m` 2-digit month (01)
+* `%d` 2-digit day of the month (13)
+* `%A` weekday (Wednesday)
+* `%a` abbreviated weekday (Wed)
+* `%B` month (January)
+* `%b` abbreviated month (Jan)
 
-## Lesson 2-
+
+use `format` inside `as.Date` to change character to dates. Also it can be use to change the dates format
+`months()` and `weekdays()` and `quarters()` return the month, weekday and quarter of the given dates
+## Lesson 2- If statement
+`ifelse()` applies on vectors and check the condition on each element of a vector. 
+The structure is `ifelse(test = , yes = , no = )`
+The power of `ifelse` is it could receive a vetor for `yes` and `no` and return the corresponding value base on the test condition.
 ## Lesson 3-
 ## Lesson 4-
 ## Lesson 5-
